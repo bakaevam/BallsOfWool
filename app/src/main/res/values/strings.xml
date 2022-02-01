@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Balls Of Wool</string>
+
+    // Меню
+    <string name="game_name">Клубочки</string>
+    <string name="play_button_text">Начать игру</string>
+    <string name="levels_button_text">Уровни</string>
+    <string name="settings_button_text">Настройки</string>
 </resources>
