@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.ballsofwool.ext.collect
 import com.example.ballsofwool.feature.base.ComposeFragment
-import com.example.ballsofwool.uicontent.MenuContent
+import com.example.ballsofwool.feature.menu.ui.MenuContent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MenuFragment : ComposeFragment() {
