@@ -2,13 +2,14 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.ballsofwool"
+        applicationId "com.game.ballsofwool"
         minSdk 26
         targetSdk 33
         versionCode 1
@@ -41,7 +42,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    namespace 'com.example.ballsofwool'
+    namespace 'com.game.ballsofwool'
 }
 
 dependencies {
@@ -73,6 +74,12 @@ dependencies {
     def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 
 }
 
