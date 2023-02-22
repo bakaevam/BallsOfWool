@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import com.example.ballsofwool.ui.theme.BallsOfWoolTheme
 
 abstract class ComposeFragment : Fragment() {
 
@@ -25,7 +26,7 @@ abstract class ComposeFragment : Fragment() {
 
     protected fun setContent(content: @Composable () -> Unit) {
         composeView!!.setContent {
-            content()
+            BallsOfWoolTheme(content = content)
         }
     }
 }

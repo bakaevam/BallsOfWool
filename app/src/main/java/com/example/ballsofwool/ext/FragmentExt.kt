@@ -7,9 +7,11 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.io.Serializable
 import kotlin.math.roundToInt
 
@@ -46,10 +48,6 @@ fun FragmentManager.clearBackStack() {
 
 fun Context.pxToDp(px: Int) = (px / resources.displayMetrics.density).roundToInt()
 
-fun Fragment.onBackPressed() {
-    activity?.onBackPressed()
-}
-
 fun <T> lazyUnsynchronized(initializer: () -> T): Lazy<T> =
     lazy(LazyThreadSafetyMode.NONE, initializer)
 
@@ -73,4 +71,17 @@ fun Fragment.lazyIntArgument(propertyName: String) = lazyUnsynchronized {
 
 fun Fragment.lazyBooleanArgument(propertyName: String) = lazyUnsynchronized {
     requireArguments().getBoolean(propertyName)
+}
+
+inline fun <T> Fragment.collectOnResume(
+    source: Flow<T>,
+    crossinline consumer: (T) -> Unit
+) {
+    lifecycleScope.launch {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            source.collect { value ->
+                consumer(value)
+            }
+        }
+    }
 }

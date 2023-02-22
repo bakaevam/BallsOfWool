@@ -3,7 +3,6 @@ package com.example.ballsofwool.feature.menu.ui
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -12,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.ballsofwool.ui.theme.RoundedCorner
 import com.example.ballsofwool.ui.theme.Typography
 import com.example.ballsofwool.ui.theme.White
 
@@ -27,7 +27,7 @@ fun MenuButton(
             .size(height = 43.dp, width = 157.dp),
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = White),
-        shape = RoundedCornerShape(6.dp),
+        shape = RoundedCorner,
         elevation = ButtonDefaults.elevation(45.dp),
     ) {
         Text(

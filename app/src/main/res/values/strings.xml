@@ -6,4 +6,7 @@
     <string name="play_button_text">Начать игру</string>
     <string name="levels_button_text">Уровни</string>
     <string name="settings_button_text">Настройки</string>
+
+    // Уровни
+    <string name="levels_title">Уровни</string>
 </resources>

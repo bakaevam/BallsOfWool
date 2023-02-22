@@ -13,8 +13,15 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.opensans_extrabold, weight = FontWeight.Bold)),
         fontWeight = FontWeight(800),
         fontSize = 40.sp,
-        lineHeight = 57.47.sp,
+        lineHeight = 58.sp,
         color = PurpleC171BF,
+    ),
+    h2 = TextStyle(
+        fontFamily = FontFamily(Font(R.font.opensans_extrabold, weight = FontWeight.Bold)),
+        fontWeight = FontWeight(800),
+        fontSize = 14.sp,
+        lineHeight = 19.sp,
+        color = PurpleB561B7,
     ),
     button = TextStyle(
         fontFamily = FontFamily(Font(R.font.opensans_extrabold, weight = FontWeight.Bold)),

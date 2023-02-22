@@ -1,8 +1,8 @@
 package com.example.ballsofwool.feature.menu
 
-import com.example.ballsofwool.feature.base.BaseViewModel
+import com.example.ballsofwool.feature.base.MviViewModel
 
-class MenuViewModel : BaseViewModel<MenuState, MenuEffect>(MenuState()) {
+class MenuViewModel : MviViewModel<MenuState, MenuEffect>(MenuState()) {
     fun onPlayClick() {
         postEffect(MenuEffect.NavigateToGame)
     }
