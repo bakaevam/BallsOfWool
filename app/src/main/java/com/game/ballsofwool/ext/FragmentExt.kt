@@ -2,6 +2,7 @@ package com.game.ballsofwool.ext
 
 import android.content.Context
 import android.os.Parcelable
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.game.ballsofwool.MainActivity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.io.Serializable
@@ -84,4 +86,18 @@ inline fun <T> Fragment.collectOnResume(
             }
         }
     }
+}
+
+fun Fragment.pressBack() {
+    lifecycleScope.launchWhenResumed {
+        try {
+            activity?.onBackPressedDispatcher?.onBackPressed()
+        } catch (e: Throwable) {
+            Log.e(e.message, "failed to press back")
+        }
+    }
+}
+
+fun Fragment.clickSound() {
+    (requireActivity() as MainActivity).clickSound()
 }

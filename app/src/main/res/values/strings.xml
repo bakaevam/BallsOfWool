@@ -9,4 +9,9 @@
 
     // Уровни
     <string name="levels_title">Уровни</string>
+
+    // Настройки
+    <string name="settings_title">Настройки</string>
+    <string name="settings_music">Музыка</string>
+    <string name="settings_sound">Звуки</string>
 </resources>

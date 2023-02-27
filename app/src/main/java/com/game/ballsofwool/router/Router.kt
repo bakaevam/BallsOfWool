@@ -6,6 +6,7 @@ import com.game.ballsofwool.MainActivity
 import com.game.ballsofwool.R
 import com.game.ballsofwool.feature.levels.LevelsFragment
 import com.game.ballsofwool.feature.menu.MenuFragment
+import com.game.ballsofwool.feature.settings.SettingsFragment
 
 val Activity.router: Router
     get() = Router(this as MainActivity)
@@ -36,6 +37,12 @@ class Router(
     fun toLevels() = replace(
         fragment = LevelsFragment.newInstance(),
         tag = LevelsFragment.TAG,
+        addToBackStack = true,
+    )
+
+    fun toSettings() = replace(
+        fragment = SettingsFragment.newInstance(),
+        tag = SettingsFragment.TAG,
         addToBackStack = true,
     )
 }

@@ -2,8 +2,8 @@ package com.game.ballsofwool.feature.menu
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import com.game.ballsofwool.ext.collect
+import com.game.ballsofwool.MainActivity
+import com.game.ballsofwool.ext.clickSound
 import com.game.ballsofwool.feature.base.MviFragment
 import com.game.ballsofwool.feature.menu.ui.MenuContent
 import com.game.ballsofwool.router.router
@@ -22,19 +22,20 @@ class MenuFragment : MviFragment<MenuState, MenuEffect, MenuViewModel>() {
                 onSettingsClick = viewModel::onSettingsClick,
             )
         }
-        collect(viewModel.effect, ::applyEffect)
     }
 
-    private fun applyEffect(effect: MenuEffect) {
+    override fun onEffect(effect: MenuEffect) {
         when (effect) {
-            is MenuEffect.NavigateToGame -> createToast()
+            is MenuEffect.NavigateToGame -> {}
             is MenuEffect.NavigateToLevels -> router.toLevels()
-            is MenuEffect.NavigateToSettings -> createToast()
+            is MenuEffect.NavigateToSettings -> router.toSettings()
+            MenuEffect.PlayMusic -> playMusic()
+            MenuEffect.ClickSound -> clickSound()
         }
     }
 
-    private fun createToast() {
-        Toast.makeText(requireContext(), "example text", Toast.LENGTH_LONG).show()
+    private fun playMusic() {
+        (requireActivity() as MainActivity).playMusic()
     }
 
     companion object {

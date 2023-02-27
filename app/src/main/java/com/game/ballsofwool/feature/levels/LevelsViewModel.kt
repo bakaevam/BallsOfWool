@@ -1,16 +1,21 @@
 package com.game.ballsofwool.feature.levels
 
+import androidx.lifecycle.viewModelScope
+import com.game.ballsofwool.data.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
 import com.game.ballsofwool.feature.game.Level
+import kotlinx.coroutines.launch
 
-class LevelsViewModel : MviViewModel<LevelsState, Nothing>(LevelsState()) {
+class LevelsViewModel(
+    private val repository: Repository,
+) : MviViewModel<LevelsState, LevelsEffect>(LevelsState()) {
 
     init {
         loadLevels()
     }
 
     fun onLevelClick(level: Level) {
-
+        clickSound()
     }
 
     fun onPreviousClick() {
@@ -47,6 +52,16 @@ class LevelsViewModel : MviViewModel<LevelsState, Nothing>(LevelsState()) {
             )
         }
         validate()
+    }
+
+    private fun clickSound() {
+        viewModelScope.launch {
+            repository.soundOn.collect {
+                if (it) {
+                    postEffect(LevelsEffect.ClickSound)
+                }
+            }
+        }
     }
 
     private fun validate() {
