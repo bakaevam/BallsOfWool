@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -83,6 +84,12 @@ dependencies {
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Kotlin
+    runtimeOnly "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4"
 
 }
 

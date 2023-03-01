@@ -21,6 +21,7 @@ private val LightColorPalette = lightColors(
 )
 
 val RoundedCorner = RoundedCornerShape(6.dp)
+val RoundedCornerDialog = RoundedCornerShape(10.dp)
 
 @Composable
 fun BallsOfWoolTheme(

@@ -1,6 +1,6 @@
 package com.game.ballsofwool.feature.levels
 
-import com.game.ballsofwool.feature.game.Level
+import com.game.ballsofwool.data.model.Level
 
 data class LevelsState(
     val levels: List<Level> = emptyList(),

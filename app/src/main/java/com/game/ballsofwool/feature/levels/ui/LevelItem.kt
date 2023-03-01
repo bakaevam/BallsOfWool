@@ -18,7 +18,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.game.ballsofwool.R
-import com.game.ballsofwool.feature.game.Level
+import com.game.ballsofwool.data.model.Level
 import com.game.ballsofwool.ui.theme.*
 
 @Preview(showBackground = true)

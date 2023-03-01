@@ -1,4 +1,4 @@
-package com.game.ballsofwool.feature.game
+package com.game.ballsofwool.data.model
 
 data class Level(
     val levelNumber: Int,

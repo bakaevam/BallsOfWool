@@ -1,7 +1,7 @@
 package com.game.ballsofwool.feature.menu
 
 import androidx.lifecycle.viewModelScope
-import com.game.ballsofwool.data.Repository
+import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
 import kotlinx.coroutines.launch
 

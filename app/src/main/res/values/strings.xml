@@ -14,4 +14,8 @@
     <string name="settings_title">Настройки</string>
     <string name="settings_music">Музыка</string>
     <string name="settings_sound">Звуки</string>
+
+    // Игра
+    <string name="game_levels">%d/%d</string>
+    <string name="game_level_complete">Уровень пройден!</string>
 </resources>

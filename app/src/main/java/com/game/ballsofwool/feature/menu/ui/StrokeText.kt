@@ -26,17 +26,21 @@ private fun Preview() {
     )
 }
 
+const val H1_STROKE_SIZE = 150f
+const val H2_STROKE_SIZE = 100f
+
 @Composable
 fun StrokeText(
     text: String,
     strokeColor: Int,
     textColor: Int,
     modifier: Modifier = Modifier,
+    size: Float = H1_STROKE_SIZE,
 ) {
     val textPaintStroke = Paint().asFrameworkPaint().apply {
         isAntiAlias = true
         style = android.graphics.Paint.Style.STROKE
-        textSize = 150f
+        textSize = size
         color = strokeColor
         strokeWidth = 30f
         strokeMiter= 10f
@@ -46,7 +50,7 @@ fun StrokeText(
 
     val textPaint = Paint().asFrameworkPaint().apply {
         style = android.graphics.Paint.Style.FILL_AND_STROKE
-        textSize = 150f
+        textSize = size
         color = textColor
         typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
     }

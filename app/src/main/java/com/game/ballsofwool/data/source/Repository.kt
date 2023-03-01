@@ -1,4 +1,4 @@
-package com.game.ballsofwool.data
+package com.game.ballsofwool.data.source
 
 import kotlinx.coroutines.flow.Flow
 

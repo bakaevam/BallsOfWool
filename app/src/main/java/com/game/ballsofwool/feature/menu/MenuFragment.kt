@@ -26,7 +26,7 @@ class MenuFragment : MviFragment<MenuState, MenuEffect, MenuViewModel>() {
 
     override fun onEffect(effect: MenuEffect) {
         when (effect) {
-            is MenuEffect.NavigateToGame -> {}
+            is MenuEffect.NavigateToGame -> router.toGame()
             is MenuEffect.NavigateToLevels -> router.toLevels()
             is MenuEffect.NavigateToSettings -> router.toSettings()
             MenuEffect.PlayMusic -> playMusic()

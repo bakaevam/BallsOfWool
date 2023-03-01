@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.game.ballsofwool.feature.game.Level
+import com.game.ballsofwool.data.model.Level
 import com.game.ballsofwool.feature.levels.LevelsState
 
 private const val HorizontalLevels = 8

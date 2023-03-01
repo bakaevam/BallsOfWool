@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.game.ballsofwool.R
-import com.game.ballsofwool.feature.game.Level
+import com.game.ballsofwool.data.model.Level
 import com.game.ballsofwool.feature.levels.LevelsState
 import com.game.ballsofwool.feature.menu.ui.StrokeText
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
@@ -79,7 +79,7 @@ fun LevelsContent(
             .background(color = RoseE2ABF5),
     ) {
         IconButton(
-            modifier = Modifier.padding(32.dp),
+            modifier = Modifier.padding(20.dp),
             onClick = onBackClick,
         ) {
             Icon(

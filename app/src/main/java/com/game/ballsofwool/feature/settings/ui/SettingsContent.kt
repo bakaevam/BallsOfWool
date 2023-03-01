@@ -31,7 +31,7 @@ fun SettingsContent(
             .background(color = RoseE2ABF5),
     ) {
         IconButton(
-            modifier = Modifier.padding(32.dp),
+            modifier = Modifier.padding(20.dp),
             onClick = onBackClick
         ) {
             Icon(
