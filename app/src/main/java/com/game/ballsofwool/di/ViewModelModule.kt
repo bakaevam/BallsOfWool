@@ -13,12 +13,12 @@ val viewModelModule = module {
         MenuViewModel(get())
     }
     viewModel {
-        LevelsViewModel(get())
+        LevelsViewModel(get(), get())
     }
     viewModel {
         SettingsViewModel(get())
     }
-    viewModel {
-        GameViewModel()
+    viewModel { (levelNumber: Int) ->
+        GameViewModel(levelNumber, get(), get())
     }
 }

@@ -1,10 +1,7 @@
 package com.game.ballsofwool.data.source
 
 import android.content.Context
-import androidx.datastore.preferences.core.MutablePreferences
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,12 +16,19 @@ class PreferencesDataSource(
     val soundOn: Flow<Boolean> =
         flowOf(KEY_SOUND_ON, false)
 
+    val lastOpenLevel: Flow<Int> =
+        flowOf(KEY_LAST_OPEN_LEVEL, 1)
+
     suspend fun setMusicOn(musicOn: Boolean) = edit { preferences ->
         preferences[KEY_MUSIC_ON] = musicOn
     }
 
     suspend fun setSoundOn(soundOn: Boolean) = edit { preferences ->
         preferences[KEY_SOUND_ON] = soundOn
+    }
+
+    suspend fun setLastOpenLevel(levelNumber: Int) = edit { preferences ->
+        preferences[KEY_LAST_OPEN_LEVEL] = levelNumber
     }
 
     private fun <T> flowOf(
@@ -43,6 +47,7 @@ class PreferencesDataSource(
         private const val STORE_NAME = "default"
         private val KEY_MUSIC_ON = booleanPreferencesKey("music_on")
         private val KEY_SOUND_ON = booleanPreferencesKey("sound_on")
+        private val KEY_LAST_OPEN_LEVEL = intPreferencesKey("last_open_level")
 
         private val Context.dataStore by preferencesDataStore(name = STORE_NAME)
     }

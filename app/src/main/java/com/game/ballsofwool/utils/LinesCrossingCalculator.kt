@@ -1,13 +1,13 @@
 package com.game.ballsofwool.utils
 
 import com.game.ballsofwool.data.model.Ball
-import com.game.ballsofwool.data.model.Line
+import com.game.ballsofwool.data.model.LocalLine
 import com.game.ballsofwool.utils.LinesCrossingCalculator.Vector.Companion.crs
 
 
 object LinesCrossingCalculator {
 
-    fun detectCrossing(lines: List<Line>): List<Line> {
+    fun detectCrossing(lines: List<LocalLine>, balls: List<Ball>): List<LocalLine> {
         val resultLines = lines.toMutableList()
         lines.forEachIndexed { index, line ->
             lines.forEach { anotherLine ->
@@ -15,12 +15,22 @@ object LinesCrossingCalculator {
                     || line.firstBall == anotherLine.secondBall
                     || line.secondBall == anotherLine.firstBall
                     || line.secondBall == anotherLine.secondBall
-                if (!neighbour) {
+                val firstBall = balls.find { it.id == line.firstBall }
+                val secondBall = balls.find { it.id == line.secondBall }
+                val firstBallAnother = balls.find { it.id == anotherLine.firstBall }
+                val secondBallAnother = balls.find { it.id == anotherLine.secondBall }
+
+                if (!neighbour
+                    && firstBall != null
+                    && secondBall != null
+                    && firstBallAnother != null
+                    && secondBallAnother != null
+                ) {
                     val crossing = isCrossing(
-                        line.firstBall,
-                        line.secondBall,
-                        anotherLine.firstBall,
-                        anotherLine.secondBall,
+                        firstBall,
+                        secondBall,
+                        firstBallAnother,
+                        secondBallAnother,
                     )
                     resultLines[index] = line.copy(isCrossing = crossing)
                     if (crossing) {

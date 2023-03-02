@@ -47,8 +47,10 @@ class Router(
         addToBackStack = true,
     )
 
-    fun toGame() = replace(
-        fragment = GameFragment.newInstance(),
+    fun toGame(
+        levelNumber: Int? = null,
+    ) = replace(
+        fragment = GameFragment.newInstance(levelNumber),
         tag = GameFragment.TAG,
         addToBackStack = true,
     )

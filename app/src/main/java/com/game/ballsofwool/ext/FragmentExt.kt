@@ -1,6 +1,7 @@
 package com.game.ballsofwool.ext
 
 import android.content.Context
+import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
 import android.widget.Toast
@@ -16,6 +17,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.io.Serializable
 import kotlin.math.roundToInt
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 inline fun <T> Fragment.collect(
     source: Flow<T>,
@@ -88,6 +91,22 @@ inline fun <T> Fragment.collectOnResume(
     }
 }
 
+fun <T : Parcelable> nullableParcelableArgument() = object : ReadWriteProperty<Fragment, T?> {
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): T? =
+        thisRef.arguments?.getParcelable(property.name) as T?
+
+    override fun setValue(thisRef: Fragment, property: KProperty<*>, value: T?) =
+        thisRef.ensureArguments().putParcelable(property.name, value)
+}
+
+fun nullableIntArgument() = object : ReadWriteProperty<Fragment, Int?> {
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): Int =
+        thisRef.requireArguments().getInt(property.name)
+
+    override fun setValue(thisRef: Fragment, property: KProperty<*>, value: Int?) =
+        thisRef.ensureArguments().putInt(property.name, value ?: (-1))
+}
+
 fun Fragment.pressBack() {
     lifecycleScope.launchWhenResumed {
         try {
@@ -100,4 +119,13 @@ fun Fragment.pressBack() {
 
 fun Fragment.clickSound() {
     (requireActivity() as MainActivity).clickSound()
+}
+
+fun Fragment.ensureArguments(): Bundle {
+    var arguments = this.arguments
+    if (arguments == null) {
+        arguments = Bundle()
+        this.arguments = arguments
+    }
+    return arguments
 }

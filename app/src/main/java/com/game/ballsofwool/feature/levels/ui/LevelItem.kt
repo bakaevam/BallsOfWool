@@ -18,7 +18,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.game.ballsofwool.R
-import com.game.ballsofwool.data.model.Level
 import com.game.ballsofwool.ui.theme.*
 
 @Preview(showBackground = true)
@@ -30,21 +29,13 @@ private fun Preview() {
             .padding(50.dp),
     ) {
         LevelItem(
-            level = Level(
-                levelNumber = 21,
-                balls = emptyList(),
-                lines = emptyList(),
-            ),
+            level = 21,
             enabled = true,
             onClick = {},
         )
         Spacer(Modifier.width(12.dp))
         LevelItem(
-            level = Level(
-                levelNumber = 21,
-                balls = emptyList(),
-                lines = emptyList(),
-            ),
+            level = 21,
             enabled = false,
             onClick = {},
         )
@@ -53,10 +44,10 @@ private fun Preview() {
 
 @Composable
 fun LevelItem(
-    level: Level,
+    level: Int,
     enabled: Boolean,
     modifier: Modifier = Modifier,
-    onClick: (Level) -> Unit,
+    onClick: (Int) -> Unit,
 ) {
     when {
         enabled -> {
@@ -74,9 +65,9 @@ fun LevelItem(
 
 @Composable
 fun EnabledLevel(
-    level: Level,
+    level: Int,
     modifier: Modifier = Modifier,
-    onClick: (Level) -> Unit,
+    onClick: (Int) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -94,7 +85,7 @@ fun EnabledLevel(
     ) {
         Text(
             modifier = Modifier.align(Alignment.Center),
-            text = level.levelNumber.toString(),
+            text = level.toString(),
             style = Typography.button,
         )
     }

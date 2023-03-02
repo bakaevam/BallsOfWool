@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.game.ballsofwool.data.model.Level
 import com.game.ballsofwool.feature.levels.LevelsState
 
 private const val HorizontalLevels = 8
@@ -14,27 +13,31 @@ private const val VerticalLevels = 3
 fun LevelsGrid(
     state: LevelsState,
     modifier: Modifier = Modifier,
-    levelContent: @Composable BoxScope.(Level) -> Unit,
+    levelContent: @Composable BoxScope.(Int) -> Unit,
 ) {
-    val iterator = state.levels.listIterator(state.firstLevelIndex)
-    var level = iterator.next()
-
     Column(
         modifier = modifier.height(174.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        repeat(VerticalLevels) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                repeat(HorizontalLevels) {
-                    if (iterator.hasNext()) {
+        if (state.levels != null) {
+            var level = 1
+            var verticalCounter = 1
+
+            while (level <= state.levels && verticalCounter <= VerticalLevels) {
+                var horizontalCounter = 1
+
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    while (horizontalCounter <= HorizontalLevels && level <= state.levels) {
                         Box {
                             levelContent(level)
                         }
-                        level = iterator.next()
+                        if (level <= state.levels) {
+                            level++
+                        }
+                        horizontalCounter++
                     }
                 }
+                verticalCounter++
             }
         }
     }

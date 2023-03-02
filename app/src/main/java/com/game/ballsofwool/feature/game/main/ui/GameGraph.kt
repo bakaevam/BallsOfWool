@@ -45,16 +45,20 @@ fun GameGraph(
                     line.isCrossing -> CROSSING_COLOR
                     else -> NOT_CROSSING_COLOR
                 }
-                val xStart = line.firstBall.x + xOffset
-                val yStart = line.firstBall.y + yOffset
-                val xEnd = line.secondBall.x + xOffset
-                val yEnd = line.secondBall.y + yOffset
-                drawLine(
-                    start = Offset(x = xStart, y = yStart),
-                    end = Offset(x = xEnd, y = yEnd),
-                    color = color,
-                    strokeWidth = WIDTH_LINE,
-                )
+                val firstBall = level.balls.find { it.id == line.firstBall }
+                val secondBall = level.balls.find { it.id == line.secondBall }
+                if (firstBall != null && secondBall != null) {
+                    val xStart = firstBall.x + xOffset
+                    val yStart = firstBall.y + yOffset
+                    val xEnd = secondBall.x + xOffset
+                    val yEnd = secondBall.y + yOffset
+                    drawLine(
+                        start = Offset(x = xStart, y = yStart),
+                        end = Offset(x = xEnd, y = yEnd),
+                        color = color,
+                        strokeWidth = WIDTH_LINE,
+                    )
+                }
             }
         }
         level.balls.forEach { ball ->

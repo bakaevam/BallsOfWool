@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.game.ballsofwool.R
-import com.game.ballsofwool.data.model.Level
 import com.game.ballsofwool.feature.levels.LevelsState
 import com.game.ballsofwool.feature.menu.ui.StrokeText
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
@@ -27,35 +26,8 @@ import com.game.ballsofwool.ui.theme.White
 private fun Preview() {
     LevelsContent(
         state = LevelsState(
-            levels = listOf(
-                Level(
-                    levelNumber = 1,
-                    balls = emptyList(),
-                    lines = emptyList(),
-                ),
-                Level(
-                    levelNumber = 2,
-                    balls = emptyList(),
-                    lines = emptyList(),
-                ),
-                Level(
-                    levelNumber = 3,
-                    balls = emptyList(),
-                    lines = emptyList(),
-                ),
-            ),
-            openLevels = listOf(
-                Level(
-                    levelNumber = 1,
-                    balls = emptyList(),
-                    lines = emptyList(),
-                ),
-                Level(
-                    levelNumber = 2,
-                    balls = emptyList(),
-                    lines = emptyList(),
-                ),
-            )
+            levels = 5,
+            lastOpenLevel = 3,
         ),
         onLevelClick = {},
         onPreviousClick = {},
@@ -69,7 +41,7 @@ fun LevelsContent(
     state: LevelsState,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
-    onLevelClick: (Level) -> Unit,
+    onLevelClick: (Int) -> Unit,
     onPreviousClick: () -> Unit,
     onNextClick: () -> Unit,
 ) {
@@ -114,10 +86,10 @@ fun LevelsContent(
                 LevelsGrid(
                     modifier = Modifier.weight(428f),
                     state = state,
-                ) { level: Level ->
+                ) { level: Int ->
                     LevelItem(
                         level = level,
-                        enabled = state.openLevels.contains(level),
+                        enabled = level <= state.lastOpenLevel,
                         onClick = onLevelClick,
                     )
                 }

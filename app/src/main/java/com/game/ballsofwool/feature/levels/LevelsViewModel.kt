@@ -1,20 +1,22 @@
 package com.game.ballsofwool.feature.levels
 
 import androidx.lifecycle.viewModelScope
-import com.game.ballsofwool.data.model.Level
+import com.game.ballsofwool.data.db.FirebaseDatabaseRepositoryImpl
 import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
 import kotlinx.coroutines.launch
 
 class LevelsViewModel(
     private val repository: Repository,
+    private val db: FirebaseDatabaseRepositoryImpl,
 ) : MviViewModel<LevelsState, LevelsEffect>(LevelsState()) {
 
     init {
         loadLevels()
     }
 
-    fun onLevelClick(level: Level) {
+    fun onLevelClick(level: Int) {
+        postEffect(LevelsEffect.PlayLevel(level))
         clickSound()
     }
 
@@ -32,25 +34,22 @@ class LevelsViewModel(
         validate()
     }
 
+    private fun getAllLevelsCount() {
+        viewModelScope.launch {
+            db.getLevelsCount()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val allLevels = task.result.count.toInt()
+                        setState {
+                            copy(levels = allLevels)
+                        }
+                    }
+                }
+        }
+    }
+
     private fun loadLevels() {
-        val levels = mutableListOf<Level>()
-        val openLevels = mutableListOf<Level>()
-        for (level in 1..100) {
-            levels.add(
-                Level(
-                    levelNumber = level,
-                    balls = emptyList(),
-                    lines = emptyList(),
-                )
-            )
-        }
-        openLevels.addAll(levels.subList(0, 49))
-        setState {
-            copy(
-                levels = levels,
-                openLevels = openLevels,
-            )
-        }
+        getAllLevelsCount()
         validate()
     }
 
@@ -68,7 +67,7 @@ class LevelsViewModel(
         setState {
             copy(
                 previousVisible = firstLevelIndex >= 24,
-                nextVisible = levels.size >= firstLevelIndex + 24,
+                nextVisible = levels != null && levels >= firstLevelIndex + 24,
             )
         }
     }

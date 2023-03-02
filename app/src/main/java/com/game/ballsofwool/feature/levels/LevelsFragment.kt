@@ -6,6 +6,7 @@ import com.game.ballsofwool.ext.clickSound
 import com.game.ballsofwool.ext.pressBack
 import com.game.ballsofwool.feature.base.MviFragment
 import com.game.ballsofwool.feature.levels.ui.LevelsContent
+import com.game.ballsofwool.router.router
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LevelsFragment : MviFragment<LevelsState, LevelsEffect, LevelsViewModel>() {
@@ -28,6 +29,7 @@ class LevelsFragment : MviFragment<LevelsState, LevelsEffect, LevelsViewModel>()
     override fun onEffect(effect: LevelsEffect) {
         when (effect) {
             LevelsEffect.ClickSound -> clickSound()
+            is LevelsEffect.PlayLevel -> router.toGame(effect.level)
         }
     }
 

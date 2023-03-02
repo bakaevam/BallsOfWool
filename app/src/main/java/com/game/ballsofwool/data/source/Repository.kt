@@ -12,9 +12,15 @@ class Repository(
     val soundOn: Flow<Boolean>
         get() = preferences.soundOn
 
+    val lastOpenLevel: Flow<Int>
+        get() = preferences.lastOpenLevel
+
     suspend fun setMusicOn(musicOn: Boolean) =
         preferences.setMusicOn(musicOn)
 
     suspend fun setSoundOn(soundOn: Boolean) =
         preferences.setSoundOn(soundOn)
+
+    suspend fun setLastOpenLevel(number: Int) =
+        preferences.setLastOpenLevel(number)
 }
