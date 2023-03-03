@@ -39,6 +39,7 @@ fun MenuContent(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Spacer(Modifier.weight(1f))
+        Spacer(Modifier.width(8.dp))
         Image(
             painter = painterResource(R.drawable.img_menu_grandma),
             contentDescription = null,
@@ -51,10 +52,11 @@ fun MenuContent(
                 painter = painterResource(R.drawable.img_menu_balls),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(start = 210.dp, top = 35.dp)
+                    .padding(start = 250.dp, top = 65.dp)
                     .size(width = 63.dp, height = 49.dp)
             )
             Buttons(
+                modifier = Modifier.fillMaxHeight(),
                 onPlayClick = onPlayClick,
                 onLevelsClick = onLevelsClick,
                 onSettingsClick = onSettingsClick,

@@ -6,23 +6,26 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
 import com.game.ballsofwool.R
 import com.game.ballsofwool.data.model.Ball
 import com.game.ballsofwool.data.model.Level
+import com.game.ballsofwool.ext.dpToPx
 import kotlin.math.roundToInt
 
 private const val WIDTH_LINE = 10F
 private val CROSSING_COLOR = Color(51, 83, 95)
 private val NOT_CROSSING_COLOR = Color(193, 113, 191)
+private val BALL_WIDTH = 41.dp
+private val BALL_HEIGHT = 40.dp
 
 @Composable
 fun GameGraph(
@@ -34,9 +37,8 @@ fun GameGraph(
     Box(
         modifier = modifier,
     ) {
-        val image = ImageBitmap.imageResource(R.drawable.img_ball)
-        val xOffset = (image.width / 2)
-        val yOffset = (image.height / 2)
+        val xOffset = (BALL_WIDTH.dpToPx() / 2)
+        val yOffset = (BALL_HEIGHT.dpToPx() / 2)
         Canvas(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -64,6 +66,7 @@ fun GameGraph(
         level.balls.forEach { ball ->
             Image(
                 modifier = Modifier
+                    .size(width = BALL_WIDTH, height = BALL_HEIGHT)
                     .offset { IntOffset(ball.x.roundToInt(), ball.y.roundToInt()) }
                     .pointerInput(Unit) {
                         detectDragGestures(

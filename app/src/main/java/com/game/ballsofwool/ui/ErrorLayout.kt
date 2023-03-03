@@ -1,18 +1,15 @@
 package com.game.ballsofwool.ui
 
-import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.game.ballsofwool.R
-import com.game.ballsofwool.feature.menu.ui.H2_STROKE_SIZE
 import com.game.ballsofwool.feature.menu.ui.MenuButton
-import com.game.ballsofwool.feature.menu.ui.StrokeText
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
 
 @Preview(showBackground = true)
@@ -39,14 +36,14 @@ fun ErrorLayout(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
     ) {
-        StrokeText(
-            modifier = Modifier.padding(start = 200.dp),
-            text = stringResource(R.string.error_title),
-            strokeColor = Color.WHITE,
-            textColor = Color.rgb(193, 113, 191),
-            size = H2_STROKE_SIZE
+        TitleText(
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .align(Alignment.CenterHorizontally),
+            text = R.string.error_title,
+            fontSize = 40.sp,
         )
-        Spacer(Modifier.height(45.dp))
+        Spacer(Modifier.height(24.dp))
         MenuButton(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             text = R.string.error_repeat,

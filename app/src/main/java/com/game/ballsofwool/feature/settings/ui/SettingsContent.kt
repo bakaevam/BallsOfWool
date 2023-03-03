@@ -1,6 +1,5 @@
 package com.game.ballsofwool.feature.settings.ui
 
-import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -9,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.game.ballsofwool.R
-import com.game.ballsofwool.feature.menu.ui.StrokeText
 import com.game.ballsofwool.feature.settings.SettingsState
+import com.game.ballsofwool.ui.TitleText
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
 import com.game.ballsofwool.ui.theme.White
 
@@ -43,12 +42,12 @@ fun SettingsContent(
         Column(
             modifier = Modifier.fillMaxWidth(),
         ) {
-            StrokeText(
+            TitleText(
                 modifier = Modifier
-                    .padding(start = 280.dp, top = 85.dp),
-                text = stringResource(R.string.settings_title),
-                strokeColor = Color.WHITE,
-                textColor = Color.rgb(193, 113, 191),
+                    .padding(top = 20.dp)
+                    .align(CenterHorizontally),
+                text = R.string.settings_title,
+                fontSize = 40.sp,
             )
             Spacer(Modifier.height(50.dp))
             Row(modifier = Modifier.align(CenterHorizontally)) {

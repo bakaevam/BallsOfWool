@@ -1,17 +1,22 @@
 package com.game.ballsofwool.feature.menu.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.game.ballsofwool.R
+import com.game.ballsofwool.ui.TitleText
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
+import com.game.ballsofwool.ui.theme.Typography
 
 @Preview(showBackground = true)
 @Composable
@@ -32,30 +37,31 @@ fun Buttons(
     onSettingsClick: () -> Unit,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(Modifier.weight(1f))
-        StrokeText(
-            text = stringResource(R.string.game_name),
-            strokeColor = android.graphics.Color.WHITE,
-            textColor = android.graphics.Color.rgb(193, 113, 191),
+        Spacer(Modifier.height(8.dp))
+        TitleText(
+            text = R.string.game_name,
+            fontSize = 50.sp,
+            style = Typography.h1,
         )
-        Spacer(Modifier.height(25.dp))
+        Spacer(Modifier.height(17.dp))
         MenuButton(
-            modifier = Modifier.padding(start = 43.dp),
             text = R.string.play_button_text,
             onClick = onPlayClick,
         )
         MenuButton(
-            modifier = Modifier.padding(start = 43.dp),
             text = R.string.levels_button_text,
             onClick = onLevelsClick,
         )
         MenuButton(
-            modifier = Modifier.padding(start = 43.dp),
             text = R.string.settings_button_text,
             onClick = onSettingsClick,
         )
         Spacer(Modifier.weight(1f))
+        Spacer(Modifier.height(16.dp))
     }
 }

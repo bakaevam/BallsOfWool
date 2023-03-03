@@ -1,6 +1,5 @@
 package com.game.ballsofwool.feature.levels.ui
 
-import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,15 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.game.ballsofwool.R
 import com.game.ballsofwool.feature.levels.LevelsState
-import com.game.ballsofwool.feature.menu.ui.StrokeText
 import com.game.ballsofwool.ui.ErrorLayout
 import com.game.ballsofwool.ui.Loader
+import com.game.ballsofwool.ui.TitleText
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
 import com.game.ballsofwool.ui.theme.White
 
@@ -67,11 +66,12 @@ fun LevelsContent(
                 tint = White,
             )
         }
-        StrokeText(
-            modifier = Modifier.padding(start = 300.dp, top = 85.dp),
-            text = stringResource(R.string.levels_title),
-            strokeColor = Color.WHITE,
-            textColor = Color.rgb(193, 113, 191),
+        TitleText(
+            modifier = Modifier
+                .padding(top = 20.dp)
+                .align(Alignment.TopCenter),
+            text = R.string.levels_title,
+            fontSize = 40.sp,
         )
         when {
             state.loading -> {

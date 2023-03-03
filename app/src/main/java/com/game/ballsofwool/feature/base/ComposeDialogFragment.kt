@@ -1,9 +1,7 @@
 package com.game.ballsofwool.feature.base
 
 import android.app.Dialog
-import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,7 +34,6 @@ abstract class ComposeDialogFragment : DialogFragment() {
 
     protected fun setContent(content: @Composable () -> Unit) {
         dialog?.setCanceledOnTouchOutside(false)
-        setWindowWidth()
         dialog?.window?.decorView?.systemUiVisibility = (
             View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
@@ -44,13 +41,5 @@ abstract class ComposeDialogFragment : DialogFragment() {
         composeView!!.setContent {
             BallsOfWoolTheme(content = content)
         }
-    }
-
-    private fun setWindowWidth() {
-        val percent = 0.52
-        val dm = Resources.getSystem().displayMetrics
-        val rect = dm.run { Rect(0, 0, widthPixels, heightPixels) }
-        val percentWidth = rect.width() * percent
-        dialog?.window?.setLayout(percentWidth.toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 }

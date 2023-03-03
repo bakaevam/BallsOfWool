@@ -1,17 +1,17 @@
 package com.game.ballsofwool.feature.game.completedialog.ui
 
-import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.game.ballsofwool.R
-import com.game.ballsofwool.feature.menu.ui.H2_STROKE_SIZE
-import com.game.ballsofwool.feature.menu.ui.StrokeText
+import com.game.ballsofwool.ui.TitleText
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
 import com.game.ballsofwool.ui.theme.RoundedCornerDialog
+import com.game.ballsofwool.ui.theme.Typography
 
 @Composable
 fun CompleteLevelContent(
@@ -21,17 +21,16 @@ fun CompleteLevelContent(
 ) {
     Column(
         modifier = modifier
-            .wrapContentWidth()
             .background(color = RoseE2ABF5, shape = RoundedCornerDialog)
-            .padding(start = 32.dp, end = 32.dp, bottom = 32.dp, top = 64.dp),
+            .padding(start = 32.dp, end = 32.dp, bottom = 32.dp, top = 16.dp),
     ) {
-        StrokeText(
-            text = stringResource(R.string.game_level_complete),
-            strokeColor = Color.WHITE,
-            textColor = Color.rgb(193, 113, 191),
-            size = H2_STROKE_SIZE,
+        TitleText(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            text = R.string.game_level_complete,
+            fontSize = 24.sp,
+            style = Typography.h2,
         )
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(16.dp))
         Row() {
             Spacer(Modifier.weight(1f))
             CompleteLevelButton(
