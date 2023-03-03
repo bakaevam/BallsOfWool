@@ -49,9 +49,12 @@ class LevelsViewModel(
                     if (task.isSuccessful) {
                         val allLevels = task.result.count.toInt()
                         setState {
-                            copy(levels = allLevels)
+                            copy(
+                                levels = allLevels,
+                                loading = false,
+                            )
                         }
-                        setState { copy(loading = false) }
+                        validate()
                     } else {
                         Timber.e(task.exception, "error load all levels count")
                         setState { copy(loadError = task.exception, loading = false) }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import com.game.ballsofwool.ext.FragmentResult
+import com.game.ballsofwool.ext.boolArgument
 import com.game.ballsofwool.ext.clickSound
 import com.game.ballsofwool.ext.setResult
 import com.game.ballsofwool.feature.base.ComposeDialogFragment
@@ -11,6 +12,8 @@ import com.game.ballsofwool.feature.game.completedialog.ui.CompleteLevelContent
 import kotlinx.parcelize.Parcelize
 
 class CompleteLevelDialog : ComposeDialogFragment() {
+
+    private var soundOn: Boolean by boolArgument()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,15 +26,21 @@ class CompleteLevelDialog : ComposeDialogFragment() {
     }
 
     private fun onRestartClick() {
-        clickSound()
+        checkSoundClick()
         setResult(Result(true))
         dismiss()
     }
 
     private fun onNextLevelClick() {
-        clickSound()
+        checkSoundClick()
         setResult(Result(false))
         dismiss()
+    }
+
+    private fun checkSoundClick() {
+        if (soundOn) {
+            clickSound()
+        }
     }
 
     @Parcelize
@@ -45,11 +54,14 @@ class CompleteLevelDialog : ComposeDialogFragment() {
 
         fun show(
             manager: FragmentManager,
+            soundOn: Boolean,
         ) {
             if (manager.findFragmentByTag(TAG) != null) {
                 return
             }
-            CompleteLevelDialog().show(manager, TAG)
+            CompleteLevelDialog().apply {
+                this.soundOn = soundOn
+            }.show(manager, TAG)
         }
     }
 }

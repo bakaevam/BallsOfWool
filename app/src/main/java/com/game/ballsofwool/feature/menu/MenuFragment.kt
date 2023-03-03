@@ -39,6 +39,8 @@ class MenuFragment : MviFragment<MenuState, MenuEffect, MenuViewModel>() {
             is MenuEffect.NavigateToSettings -> router.toSettings()
             MenuEffect.PlayMusic -> playMusic()
             MenuEffect.ClickSound -> clickSound()
+            is MenuEffect.ShowAllLevelsComplete ->
+                AllLevelsCompleteDialog.show(parentFragmentManager, effect.soundOn)
         }
     }
 
@@ -47,7 +49,7 @@ class MenuFragment : MviFragment<MenuState, MenuEffect, MenuViewModel>() {
     }
 
     private fun onGameFragmentResult(result: GameFragment.Result) {
-        AllLevelsCompleteDialog.show(parentFragmentManager)
+        viewModel.onGameFragmentResult()
     }
 
     companion object {

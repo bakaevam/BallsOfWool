@@ -7,4 +7,7 @@ sealed interface MenuEffect {
     object NavigateToSettings : MenuEffect
     object PlayMusic : MenuEffect
     object ClickSound : MenuEffect
+    data class ShowAllLevelsComplete(
+        val soundOn: Boolean,
+    ) : MenuEffect
 }

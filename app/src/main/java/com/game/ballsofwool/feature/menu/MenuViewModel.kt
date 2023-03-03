@@ -3,6 +3,7 @@ package com.game.ballsofwool.feature.menu
 import androidx.lifecycle.viewModelScope
 import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class MenuViewModel(
@@ -34,12 +35,17 @@ class MenuViewModel(
         postEffect(MenuEffect.NavigateToSettings)
     }
 
+    fun onGameFragmentResult() {
+        viewModelScope.launch {
+            postEffect(MenuEffect.ShowAllLevelsComplete(repository.soundOn.first()))
+        }
+    }
+
     private fun clickSound() {
         viewModelScope.launch {
-            repository.soundOn.collect {
-                if (it) {
-                    postEffect(MenuEffect.ClickSound)
-                }
+            val soundOn = repository.soundOn.first()
+            if (soundOn) {
+                postEffect(MenuEffect.ClickSound)
             }
         }
     }

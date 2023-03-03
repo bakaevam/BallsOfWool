@@ -3,18 +3,29 @@ package com.game.ballsofwool.feature.menu.completelevels
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentManager
+import com.game.ballsofwool.ext.boolArgument
+import com.game.ballsofwool.ext.clickSound
 import com.game.ballsofwool.feature.base.ComposeDialogFragment
 import com.game.ballsofwool.feature.menu.completelevels.ui.AllLevelsCompleteContent
 
 class AllLevelsCompleteDialog : ComposeDialogFragment() {
 
+    private var soundOn: Boolean by boolArgument()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setContent {
             AllLevelsCompleteContent(
-                onClick = ::dismiss,
+                onClick = ::onClick,
             )
         }
+    }
+
+    private fun onClick() {
+        if (soundOn) {
+            clickSound()
+        }
+        dismiss()
     }
 
     companion object {
@@ -23,11 +34,14 @@ class AllLevelsCompleteDialog : ComposeDialogFragment() {
 
         fun show(
             manager: FragmentManager,
+            soundOn: Boolean,
         ) {
             if (manager.findFragmentByTag(TAG) != null) {
                 return
             }
-            AllLevelsCompleteDialog().show(manager, TAG)
+            AllLevelsCompleteDialog().apply {
+                this.soundOn = soundOn
+            }.show(manager, TAG)
         }
     }
 }

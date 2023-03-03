@@ -71,7 +71,6 @@ fun EnabledLevel(
 ) {
     Box(
         modifier = modifier
-            .padding(horizontal = 6.dp)
             .shadow(elevation = 45.dp)
             .size(50.dp)
             .clip(RoundedCorner)
@@ -97,7 +96,6 @@ fun CloseLevel(
 ) {
     Box(
         modifier = modifier
-            .padding(horizontal = 6.dp)
             .size(50.dp)
             .background(shape = RoundedCorner, color = GrayE8E8E8),
     ) {

@@ -40,14 +40,14 @@ class GameFragment : MviFragment<GameState, GameEffect, GameViewModel>() {
 
     override fun onEffect(effect: GameEffect) {
         when (effect) {
-            GameEffect.ShowComplete -> showCompleteLevelDialog()
+            is GameEffect.ShowComplete -> showCompleteLevelDialog(effect.soundOn)
             GameEffect.ShowToastAllLevels -> showAllLevelsComplete()
             GameEffect.BallsLoaded -> viewModel.onBallsLoaded(displayMetrics)
         }
     }
 
-    private fun showCompleteLevelDialog() {
-        CompleteLevelDialog.show(parentFragmentManager)
+    private fun showCompleteLevelDialog(soundOn: Boolean) {
+        CompleteLevelDialog.show(parentFragmentManager, soundOn)
     }
 
     private fun onCompleteLevelResult(result: CompleteLevelDialog.Result) {

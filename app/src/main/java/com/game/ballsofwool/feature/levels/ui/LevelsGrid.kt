@@ -2,6 +2,7 @@ package com.game.ballsofwool.feature.levels.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.game.ballsofwool.feature.levels.LevelsState
@@ -18,15 +19,18 @@ fun LevelsGrid(
     Column(
         modifier = modifier.height(174.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.Start,
     ) {
         if (state.levels != null) {
-            var level = 1
+            var level = state.firstLevelIndex
             var verticalCounter = 1
 
             while (level <= state.levels && verticalCounter <= VerticalLevels) {
                 var horizontalCounter = 1
 
-                Row(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
                     while (horizontalCounter <= HorizontalLevels && level <= state.levels) {
                         Box {
                             levelContent(level)

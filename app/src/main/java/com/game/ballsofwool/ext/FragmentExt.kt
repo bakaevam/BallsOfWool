@@ -107,6 +107,14 @@ fun nullableIntArgument() = object : ReadWriteProperty<Fragment, Int?> {
         thisRef.ensureArguments().putInt(property.name, value ?: (-1))
 }
 
+fun boolArgument() = object : ReadWriteProperty<Fragment, Boolean> {
+    override fun getValue(thisRef: Fragment, property: KProperty<*>): Boolean =
+        thisRef.requireArguments().getBoolean(property.name)
+
+    override fun setValue(thisRef: Fragment, property: KProperty<*>, value: Boolean) =
+        thisRef.ensureArguments().putBoolean(property.name, value)
+}
+
 fun Fragment.pressBack() {
     lifecycleScope.launchWhenResumed {
         try {

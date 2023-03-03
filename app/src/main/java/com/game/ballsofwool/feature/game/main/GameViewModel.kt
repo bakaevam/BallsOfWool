@@ -151,7 +151,9 @@ class GameViewModel(
     private fun checkReadyLevel() {
         val crossingLine = state.value.currentLevel?.lines?.find { it.isCrossing }
         if (crossingLine == null) {
-            postEffect(GameEffect.ShowComplete)
+            viewModelScope.launch {
+                postEffect(GameEffect.ShowComplete(repository.soundOn.first()))
+            }
         }
     }
 
