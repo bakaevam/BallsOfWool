@@ -1,6 +1,6 @@
 package com.game.ballsofwool.feature.game.main
 
-import android.util.Log
+import android.util.DisplayMetrics
 import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.viewModelScope
 import com.game.ballsofwool.data.db.FirebaseDatabaseRepositoryImpl
@@ -8,9 +8,11 @@ import com.game.ballsofwool.data.model.*
 import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
 import com.game.ballsofwool.utils.DataConverter
+import com.game.ballsofwool.utils.DataConverter.Companion.dpToPx
 import com.game.ballsofwool.utils.LinesCrossingCalculator
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class GameViewModel(
     private val levelNumber: Int,
@@ -18,10 +20,16 @@ class GameViewModel(
     private val repository: Repository,
 ) : MviViewModel<GameState, GameEffect>(GameState()) {
 
+    private var level: Level? = null
+
     init {
         getAllLevelsCount()
         getLevel()
     }
+
+    fun onRestartLoadClick() = getLevel()
+
+    fun onRestartAllLevelsClick() = getAllLevelsCount()
 
     fun onRestartClick() = getLevel()
 
@@ -46,6 +54,20 @@ class GameViewModel(
 
     fun onDragEnd() = checkReadyLevel()
 
+    fun onBallsLoaded(displayMetrics: DisplayMetrics) {
+        setState {
+            copy(
+                currentLevel = level?.copy(
+                    balls = level?.balls?.toPxBalls(
+                        displayMetrics
+                    ) ?: emptyList()
+                ),
+                loading = false,
+            )
+        }
+        validate()
+    }
+
     private fun getLevel() {
         viewModelScope.launch {
             val dbLevels = mutableListOf<LevelResponse>()
@@ -54,25 +76,40 @@ class GameViewModel(
                 else -> repository.lastOpenLevel.first()
             }
             db.getLevel(number)
-                .addOnFailureListener {
-                    Log.e("FIREBASE STORE", it.message.toString())
-                }
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val result = it.result.documents
-                        result.forEach { doc ->
-                            println(doc.data)
-                            val response = DataConverter.convertSnapshotToLevelResponse(doc)
-                            if (response != null) {
-                                dbLevels.add(response)
+                .addSnapshotListener { value, error ->
+                    try {
+                        setState { copy(loading = true, loadError = null) }
+                        when {
+                            error != null -> {
+                                setState { copy(loadError = error) }
+                                return@addSnapshotListener
+                            }
+                            value != null -> {
+                                val result = value.documents
+                                result.forEach { doc ->
+                                    val response = DataConverter.convertSnapshotToLevelResponse(doc)
+                                    if (response != null) {
+                                        dbLevels.add(response)
+                                    }
+                                }
+                                if (dbLevels.isEmpty()) {
+                                    setState { copy(loadError = Throwable()) }
+                                    return@addSnapshotListener
+                                } else {
+                                    level = dbLevels.first().toLevel()
+                                    postEffect(GameEffect.BallsLoaded)
+                                }
                             }
                         }
-                        val currentLevel = dbLevels.first().toLevel()
-                        setState { copy(currentLevel = currentLevel) }
+                    } catch (e: Throwable) {
+                        setState { copy(loadError = e) }
+                        Timber.e(e, "error get level in Game")
+                    } finally {
+                        setState { copy(loading = false) }
                     }
+
                 }
         }
-        validate()
     }
 
     private fun getNextLevel() {
@@ -91,12 +128,21 @@ class GameViewModel(
     private fun getAllLevelsCount() {
         viewModelScope.launch {
             db.getLevelsCount()
+                .addOnFailureListener { e ->
+                    Timber.e(e, "error load all levels count")
+                    setState { copy(allLevelsError = e, loading = false) }
+                }
                 .addOnCompleteListener { task ->
+                    setState { copy(loading = true, allLevelsError = null) }
                     if (task.isSuccessful) {
                         val allLevels = task.result.count.toInt()
                         setState {
                             copy(allLevels = allLevels)
                         }
+                        setState { copy(loading = false) }
+                    } else {
+                        Timber.e(task.exception, "error load all levels count")
+                        setState { copy(allLevelsError = task.exception, loading = false) }
                     }
                 }
         }
@@ -139,6 +185,15 @@ class GameViewModel(
             LocalLine(
                 firstBall = line.firstBall!!,
                 secondBall = line.secondBall!!,
+            )
+        }
+    }
+
+    private fun List<Ball>.toPxBalls(displayMetrics: DisplayMetrics): List<Ball> {
+        return map { ball ->
+            ball.copy(
+                x = ball.x.dpToPx(displayMetrics),
+                y = ball.y.dpToPx(displayMetrics)
             )
         }
     }

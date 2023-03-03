@@ -19,6 +19,7 @@ class LevelsFragment : MviFragment<LevelsState, LevelsEffect, LevelsViewModel>()
             LevelsContent(
                 state = state,
                 onBackClick = ::pressBack,
+                onRestartClick = viewModel::onRestartClick,
                 onLevelClick = viewModel::onLevelClick,
                 onPreviousClick = viewModel::onPreviousClick,
                 onNextClick = viewModel::onNextClick,

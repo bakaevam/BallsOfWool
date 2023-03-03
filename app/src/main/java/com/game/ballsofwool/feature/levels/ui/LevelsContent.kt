@@ -1,7 +1,10 @@
 package com.game.ballsofwool.feature.levels.ui
 
+import android.graphics.Color
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -15,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import com.game.ballsofwool.R
 import com.game.ballsofwool.feature.levels.LevelsState
 import com.game.ballsofwool.feature.menu.ui.StrokeText
+import com.game.ballsofwool.ui.ErrorLayout
+import com.game.ballsofwool.ui.Loader
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
 import com.game.ballsofwool.ui.theme.White
 
@@ -33,6 +38,7 @@ private fun Preview() {
         onPreviousClick = {},
         onNextClick = {},
         onBackClick = {},
+        onRestartClick = {},
     )
 }
 
@@ -41,6 +47,7 @@ fun LevelsContent(
     state: LevelsState,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
+    onRestartClick: () -> Unit,
     onLevelClick: (Int) -> Unit,
     onPreviousClick: () -> Unit,
     onNextClick: () -> Unit,
@@ -60,50 +67,32 @@ fun LevelsContent(
                 tint = White,
             )
         }
-        Column {
-            StrokeText(
-                modifier = Modifier.padding(start = 300.dp, top = 85.dp),
-                text = stringResource(R.string.levels_title),
-                strokeColor = android.graphics.Color.WHITE,
-                textColor = android.graphics.Color.rgb(193, 113, 191),
-            )
-            Spacer(Modifier.height(50.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                if (state.previousVisible) {
-                    Spacer(Modifier.weight(63f))
-                    LevelButton(
-                        modifier = Modifier,
-                        icon = R.drawable.ic_previous_button,
-                        onClick = onPreviousClick,
-                    )
-                    Spacer(Modifier.width(24.dp))
-                } else {
-                    Spacer(Modifier.weight(120f))
-                }
-                LevelsGrid(
-                    modifier = Modifier.weight(428f),
+        StrokeText(
+            modifier = Modifier.padding(start = 300.dp, top = 85.dp),
+            text = stringResource(R.string.levels_title),
+            strokeColor = Color.WHITE,
+            textColor = Color.rgb(193, 113, 191),
+        )
+        when {
+            state.loading -> {
+                Loader(Modifier.fillMaxSize())
+            }
+            state.loadError != null -> {
+                ErrorLayout(
+                    modifier = Modifier.fillMaxSize(),
+                    onClick = onRestartClick,
+                )
+            }
+            else -> {
+                LevelsBody(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .align(Alignment.Center),
                     state = state,
-                ) { level: Int ->
-                    LevelItem(
-                        level = level,
-                        enabled = level <= state.lastOpenLevel,
-                        onClick = onLevelClick,
-                    )
-                }
-                if (state.nextVisible) {
-                    Spacer(Modifier.width(24.dp))
-                    LevelButton(
-                        modifier = Modifier,
-                        icon = R.drawable.ic_next_button,
-                        onClick = onNextClick,
-                    )
-                    Spacer(Modifier.weight(62f))
-                } else {
-                    Spacer(Modifier.weight(119f))
-                }
+                    onNextClick = onNextClick,
+                    onPreviousClick = onPreviousClick,
+                    onLevelClick = onLevelClick,
+                )
             }
         }
     }

@@ -1,10 +1,7 @@
 package com.game.ballsofwool.data.db
 
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.AggregateQuerySnapshot
-import com.google.firebase.firestore.AggregateSource
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -17,11 +14,11 @@ class FirebaseDatabaseRepositoryImpl() : Database {
         return reference.get()
     }
 
-    override fun getLevel(number: Int): Task<QuerySnapshot> {
+    override fun getLevel(number: Int): Query {
         val reference = database
             .collection(TABLE_NAME)
             .whereEqualTo(FIELD_LEVEL_NUMBER, number)
-        return reference.get()
+        return reference
     }
 
     override fun getLevelsCount(): Task<AggregateQuerySnapshot> {

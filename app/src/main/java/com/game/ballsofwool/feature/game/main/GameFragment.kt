@@ -1,6 +1,7 @@
 package com.game.ballsofwool.feature.game.main
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
 import com.game.ballsofwool.R
 import com.game.ballsofwool.ext.nullableIntArgument
@@ -18,9 +19,11 @@ class GameFragment : MviFragment<GameState, GameEffect, GameViewModel>() {
 
     override val viewModel by viewModel<GameViewModel> { parametersOf(levelNumber) }
     private var levelNumber: Int? by nullableIntArgument()
+    private lateinit var displayMetrics: DisplayMetrics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        displayMetrics = resources.displayMetrics
         setResultListener(::onCompleteLevelResult)
     }
 
@@ -30,6 +33,8 @@ class GameFragment : MviFragment<GameState, GameEffect, GameViewModel>() {
             GameContent(
                 state = state,
                 onBackClick = ::pressBack,
+                onRestartLoadClick = viewModel::onRestartLoadClick,
+                onRestartAllLevelsClick = viewModel::onRestartAllLevelsClick,
                 onBallDrag = viewModel::onBallDrag,
                 onDragEnd = viewModel::onDragEnd,
             )
@@ -40,6 +45,7 @@ class GameFragment : MviFragment<GameState, GameEffect, GameViewModel>() {
         when (effect) {
             GameEffect.ShowComplete -> showCompleteLevelDialog()
             GameEffect.ShowToastAllLevels -> showAllLevelsComplete()
+            GameEffect.BallsLoaded -> viewModel.onBallsLoaded(displayMetrics)
         }
     }
 

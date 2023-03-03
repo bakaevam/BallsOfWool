@@ -19,4 +19,8 @@
     <string name="game_levels">%d/%d</string>
     <string name="game_level_complete">Уровень пройден!</string>
     <string name="game_all_level_complete">Ты прошел все уровни!</string>
+
+    // Ошибки
+    <string name="error_title">Что-то пошло не так</string>
+    <string name="error_repeat">Повторить</string>
 </resources>

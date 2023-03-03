@@ -5,4 +5,6 @@ sealed interface GameEffect {
     object ShowComplete : GameEffect
 
     object ShowToastAllLevels : GameEffect
+
+    object BallsLoaded : GameEffect
 }

@@ -35,8 +35,8 @@ fun GameGraph(
         modifier = modifier,
     ) {
         val image = ImageBitmap.imageResource(R.drawable.img_ball)
-        val xOffset = image.width / 2
-        val yOffset = image.height / 2
+        val xOffset = (image.width / 2)
+        val yOffset = (image.height / 2)
         Canvas(
             modifier = Modifier.fillMaxSize()
         ) {

@@ -5,6 +5,7 @@ import com.game.ballsofwool.data.db.FirebaseDatabaseRepositoryImpl
 import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class LevelsViewModel(
     private val repository: Repository,
@@ -14,6 +15,8 @@ class LevelsViewModel(
     init {
         loadLevels()
     }
+
+    fun onRestartClick() = loadLevels()
 
     fun onLevelClick(level: Int) {
         postEffect(LevelsEffect.PlayLevel(level))
@@ -37,12 +40,21 @@ class LevelsViewModel(
     private fun getAllLevelsCount() {
         viewModelScope.launch {
             db.getLevelsCount()
+                .addOnFailureListener {
+                    Timber.e(it, "error load levels count")
+                    setState { copy(loadError = it, loading = false) }
+                }
                 .addOnCompleteListener { task ->
+                    setState { copy(loading = true, loadError = null) }
                     if (task.isSuccessful) {
                         val allLevels = task.result.count.toInt()
                         setState {
                             copy(levels = allLevels)
                         }
+                        setState { copy(loading = false) }
+                    } else {
+                        Timber.e(task.exception, "error load all levels count")
+                        setState { copy(loadError = task.exception, loading = false) }
                     }
                 }
         }
