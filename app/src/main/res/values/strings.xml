@@ -6,6 +6,7 @@
     <string name="play_button_text">Начать игру</string>
     <string name="levels_button_text">Уровни</string>
     <string name="settings_button_text">Настройки</string>
+    <string name="action_ok">Ок</string>
 
     // Уровни
     <string name="levels_title">Уровни</string>
@@ -18,7 +19,7 @@
     // Игра
     <string name="game_levels">%d/%d</string>
     <string name="game_level_complete">Уровень пройден!</string>
-    <string name="game_all_level_complete">Ты прошел все уровни!</string>
+    <string name="game_all_level_complete">Поздравляю, ты прошел все уровни!</string>
 
     // Ошибки
     <string name="error_title">Что-то пошло не так</string>

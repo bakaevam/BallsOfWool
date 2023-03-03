@@ -19,6 +19,13 @@ val Typography = Typography(
     h2 = TextStyle(
         fontFamily = FontFamily(Font(R.font.opensans_extrabold, weight = FontWeight.Bold)),
         fontWeight = FontWeight(800),
+        fontSize = 24.sp,
+        lineHeight = 24.sp,
+        color = PurpleB561B7,
+    ),
+    h3 = TextStyle(
+        fontFamily = FontFamily(Font(R.font.opensans_extrabold, weight = FontWeight.Bold)),
+        fontWeight = FontWeight(800),
         fontSize = 14.sp,
         lineHeight = 19.sp,
         color = PurpleB561B7,

@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import com.game.ballsofwool.MainActivity
 import com.game.ballsofwool.ext.clickSound
+import com.game.ballsofwool.ext.setResultListener
 import com.game.ballsofwool.feature.base.MviFragment
+import com.game.ballsofwool.feature.game.main.GameFragment
+import com.game.ballsofwool.feature.menu.completelevels.AllLevelsCompleteDialog
 import com.game.ballsofwool.feature.menu.ui.MenuContent
 import com.game.ballsofwool.router.router
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -12,6 +15,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MenuFragment : MviFragment<MenuState, MenuEffect, MenuViewModel>() {
 
     override val viewModel by viewModel<MenuViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setResultListener(::onGameFragmentResult)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,6 +44,10 @@ class MenuFragment : MviFragment<MenuState, MenuEffect, MenuViewModel>() {
 
     private fun playMusic() {
         (requireActivity() as MainActivity).playMusic()
+    }
+
+    private fun onGameFragmentResult(result: GameFragment.Result) {
+        AllLevelsCompleteDialog.show(parentFragmentManager)
     }
 
     companion object {

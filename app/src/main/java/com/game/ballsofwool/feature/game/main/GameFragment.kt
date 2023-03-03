@@ -3,15 +3,12 @@ package com.game.ballsofwool.feature.game.main
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
-import com.game.ballsofwool.R
-import com.game.ballsofwool.ext.nullableIntArgument
-import com.game.ballsofwool.ext.pressBack
-import com.game.ballsofwool.ext.setResultListener
-import com.game.ballsofwool.ext.showToast
+import com.game.ballsofwool.ext.*
 import com.game.ballsofwool.feature.base.MviFragment
 import com.game.ballsofwool.feature.game.completedialog.CompleteLevelDialog
 import com.game.ballsofwool.feature.game.main.ui.GameContent
 import com.game.ballsofwool.router.router
+import kotlinx.parcelize.Parcelize
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -61,9 +58,14 @@ class GameFragment : MviFragment<GameState, GameEffect, GameViewModel>() {
     }
 
     private fun showAllLevelsComplete() {
-        showToast(getString(R.string.game_all_level_complete))
+        setResult(Result())
         router.popToRoot()
     }
+
+    @Parcelize
+    data class Result(
+        val allLevelsComplete: Boolean = true,
+    ) : FragmentResult
 
     companion object {
 
