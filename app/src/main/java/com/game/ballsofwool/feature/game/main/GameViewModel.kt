@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class GameViewModel(
-    private val levelNumber: Int,
+    private var levelNumber: Int,
     private val db: FirebaseDatabaseRepositoryImpl,
     private val repository: Repository,
 ) : MviViewModel<GameState, GameEffect>(GameState()) {
@@ -87,6 +87,7 @@ class GameViewModel(
                             value != null -> {
                                 val result = value.documents
                                 result.forEach { doc ->
+                                    println(doc)
                                     val response = DataConverter.convertSnapshotToLevelResponse(doc)
                                     if (response != null) {
                                         dbLevels.add(response)
@@ -97,6 +98,7 @@ class GameViewModel(
                                     return@addSnapshotListener
                                 } else {
                                     level = dbLevels.first().toLevel()
+                                    levelNumber = level?.levelNumber ?: -1
                                     postEffect(GameEffect.BallsLoaded)
                                 }
                             }
@@ -114,10 +116,15 @@ class GameViewModel(
 
     private fun getNextLevel() {
         viewModelScope.launch {
-            val nextLevelNumber = repository.lastOpenLevel.first() + 1
             val state = state.value
-            if (state.allLevels != null && nextLevelNumber <= state.allLevels) {
-                repository.setLastOpenLevel(nextLevelNumber)
+            if (state.allLevels != null && level != null && level!!.levelNumber < state.allLevels) {
+                val nextLevelNumber = repository.lastOpenLevel.first() + 1
+                levelNumber = if (level?.levelNumber == repository.lastOpenLevel.first()) {
+                    repository.setLastOpenLevel(nextLevelNumber)
+                    nextLevelNumber
+                } else {
+                    level?.levelNumber!! + 1
+                }
                 getLevel()
             } else {
                 postEffect(GameEffect.ShowToastAllLevels)

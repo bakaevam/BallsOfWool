@@ -27,6 +27,11 @@ class LevelsFragment : MviFragment<LevelsState, LevelsEffect, LevelsViewModel>()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
+    }
+
     override fun onEffect(effect: LevelsEffect) {
         when (effect) {
             LevelsEffect.ClickSound -> clickSound()

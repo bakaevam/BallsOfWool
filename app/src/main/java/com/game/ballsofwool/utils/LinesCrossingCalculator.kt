@@ -34,7 +34,7 @@ object LinesCrossingCalculator {
                     )
                     resultLines[index] = line.copy(isCrossing = crossing)
                     if (crossing) {
-                        return@forEach
+                        return@forEachIndexed
                     }
                 }
             }

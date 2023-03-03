@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.game.ballsofwool.data.db.FirebaseDatabaseRepositoryImpl
 import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -12,7 +13,8 @@ class LevelsViewModel(
     private val db: FirebaseDatabaseRepositoryImpl,
 ) : MviViewModel<LevelsState, LevelsEffect>(LevelsState()) {
 
-    init {
+    fun onResume() {
+        setLastOpenLevel()
         loadLevels()
     }
 
@@ -35,6 +37,15 @@ class LevelsViewModel(
             copy(firstLevelIndex = firstLevelIndex + 24)
         }
         validate()
+    }
+
+    private fun setLastOpenLevel() {
+        viewModelScope.launch {
+            val level = repository.lastOpenLevel.first()
+            setState {
+                copy(lastOpenLevel = level)
+            }
+        }
     }
 
     private fun getAllLevelsCount() {
