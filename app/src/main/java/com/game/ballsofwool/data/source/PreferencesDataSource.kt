@@ -11,10 +11,10 @@ class PreferencesDataSource(
 ) {
 
     val musicOn: Flow<Boolean> =
-        flowOf(KEY_MUSIC_ON, false)
+        flowOf(KEY_MUSIC_ON, true)
 
     val soundOn: Flow<Boolean> =
-        flowOf(KEY_SOUND_ON, false)
+        flowOf(KEY_SOUND_ON, true)
 
     val lastOpenLevel: Flow<Int> =
         flowOf(KEY_LAST_OPEN_LEVEL, 1)
