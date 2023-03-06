@@ -9,4 +9,8 @@ sealed interface GameEffect {
     object ShowToastAllLevels : GameEffect
 
     object BallsLoaded : GameEffect
+
+    data class ShowManualDialog(
+        val soundOn: Boolean,
+    ) : GameEffect
 }

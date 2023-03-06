@@ -23,6 +23,7 @@
     <string name="game_levels" translatable="false">%d/%d</string>
     <string name="game_level_complete">Уровень пройден!</string>
     <string name="game_all_level_complete">Поздравляю, ты прошел все уровни!</string>
+    <string name="game_manual">Передвигай клубочки так, чтобы ниточки не пересекались</string>
 
     // Ошибки
     <string name="error_title">Что-то пошло не так</string>

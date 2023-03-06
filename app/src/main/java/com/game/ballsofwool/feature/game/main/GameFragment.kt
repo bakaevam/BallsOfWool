@@ -3,10 +3,12 @@ package com.game.ballsofwool.feature.game.main
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
+import com.game.ballsofwool.R
 import com.game.ballsofwool.ext.*
 import com.game.ballsofwool.feature.base.MviFragment
 import com.game.ballsofwool.feature.game.completedialog.CompleteLevelDialog
 import com.game.ballsofwool.feature.game.main.ui.GameContent
+import com.game.ballsofwool.feature.menu.completelevels.InfoDialog
 import com.game.ballsofwool.router.router
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,6 +45,7 @@ class GameFragment : MviFragment<GameState, GameEffect, GameViewModel>() {
             is GameEffect.ShowComplete -> showCompleteLevelDialog(effect.soundOn)
             GameEffect.ShowToastAllLevels -> showAllLevelsComplete()
             GameEffect.BallsLoaded -> viewModel.onBallsLoaded(displayMetrics)
+            is GameEffect.ShowManualDialog -> showManualDialog(effect.soundOn)
         }
     }
 
@@ -60,6 +63,14 @@ class GameFragment : MviFragment<GameState, GameEffect, GameViewModel>() {
     private fun showAllLevelsComplete() {
         setResult(Result())
         router.popToRoot()
+    }
+
+    private fun showManualDialog(soundOn: Boolean) {
+        InfoDialog.show(
+            manager = parentFragmentManager,
+            soundOn = soundOn,
+            text = R.string.game_manual,
+        )
     }
 
     @Parcelize

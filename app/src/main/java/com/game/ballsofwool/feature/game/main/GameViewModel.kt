@@ -66,6 +66,12 @@ class GameViewModel(
             )
         }
         validate()
+        viewModelScope.launch {
+            if (state.value.currentLevel?.levelNumber == 1 && !repository.showedManual.first()) {
+                repository.setShowedManual(true)
+                postEffect(GameEffect.ShowManualDialog(repository.soundOn.first()))
+            }
+        }
     }
 
     private fun getLevel() {

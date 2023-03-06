@@ -15,7 +15,8 @@ import com.game.ballsofwool.ui.theme.RoundedCornerDialog
 import com.game.ballsofwool.ui.theme.Typography
 
 @Composable
-fun AllLevelsCompleteContent(
+fun InfoContent(
+    text: Int,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
@@ -27,7 +28,7 @@ fun AllLevelsCompleteContent(
     ) {
         TitleText(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            text = R.string.game_all_level_complete,
+            text = text,
             fontSize = 24.sp,
             style = Typography.h2,
         )

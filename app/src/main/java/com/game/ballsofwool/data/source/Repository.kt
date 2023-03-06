@@ -18,6 +18,9 @@ class Repository(
     val selectedLanguage: Flow<String>
         get() = preferences.selectedLanguage
 
+    val showedManual: Flow<Boolean>
+        get() = preferences.showedManual
+
     suspend fun setMusicOn(musicOn: Boolean) =
         preferences.setMusicOn(musicOn)
 
@@ -29,4 +32,7 @@ class Repository(
 
     suspend fun setSelectedLanguage(language: String) =
         preferences.setSelectedLanguage(language)
+
+    suspend fun setShowedManual(showedManual: Boolean) =
+        preferences.setShowedManual(showedManual)
 }

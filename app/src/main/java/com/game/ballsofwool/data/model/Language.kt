@@ -20,8 +20,8 @@ enum class Language(
 
     companion object {
 
-        fun getLanguage(code: String): Language? {
-            return values().find { it.code == code }
+        fun getLanguage(code: String): Language {
+            return values().find { it.code == code } ?: ENGLISH
         }
     }
 }

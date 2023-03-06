@@ -15,4 +15,5 @@
     <string name="error_title">Something went wrong</string>
     <string name="error_repeat">Retry</string>
     <string name="settings_language">Language</string>
+    <string name="game_manual">Move the balls so that the lines do not intersect</string>
 </resources>
