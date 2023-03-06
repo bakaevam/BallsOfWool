@@ -8,16 +8,26 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.game.ballsofwool.feature.MainEffect
+import com.game.ballsofwool.feature.MainViewModel
 import com.game.ballsofwool.router.router
+import com.yariksoffice.lingver.Lingver
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.main_activity) {
 
     private var mediaPlayer: MediaPlayer? = null
     private var soundPlayer: MediaPlayer? = null
 
+    private val viewModel by viewModel<MainViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         hideSystemUi()
+        lifecycleScope.launchWhenResumed {
+            viewModel.effect.collect(::applyEffect)
+        }
         router.toMenu()
     }
 
@@ -56,6 +66,16 @@ class MainActivity : AppCompatActivity(R.layout.main_activity) {
             soundPlayer = MediaPlayer.create(this, R.raw.click)
         }
         soundPlayer?.start()
+    }
+
+    private fun applyEffect(effect: MainEffect) {
+        when (effect) {
+            is MainEffect.ChangeLanguage -> changeLanguage(effect.language)
+        }
+    }
+
+    private fun changeLanguage(language: String) {
+        Lingver.getInstance().setLocale(this, language)
     }
 
     private fun hideSystemUi() {

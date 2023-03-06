@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Balls Of Wool</string>
+    <string name="game_name">Balls Of Wool</string>
+    <string name="play_button_text">Start the game</string>
+    <string name="levels_button_text">Levels</string>
+    <string name="settings_button_text">Settings</string>
+    <string name="action_ok">Ok</string>
+    <string name="levels_title">Levels</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_music">Music</string>
+    <string name="settings_sound">Sound</string>
+    <string name="game_level_complete">The level is passed!</string>
+    <string name="game_all_level_complete">Congratulations, you have passed all the levels!</string>
+    <string name="error_title">Something went wrong</string>
+    <string name="error_repeat">Retry</string>
+    <string name="settings_language">Language</string>
+</resources>

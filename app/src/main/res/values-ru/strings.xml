@@ -1,30 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Клубочки</string>
-
-    // Меню
     <string name="game_name">Клубочки</string>
     <string name="play_button_text">Начать игру</string>
     <string name="levels_button_text">Уровни</string>
     <string name="settings_button_text">Настройки</string>
     <string name="action_ok">Ок</string>
-
-    // Уровни
     <string name="levels_title">Уровни</string>
-
-    // Настройки
     <string name="settings_title">Настройки</string>
     <string name="settings_music">Музыка</string>
     <string name="settings_sound">Звуки</string>
-    <string name="settings_language">Язык</string>
-    <string name="settings_english" translatable="false">English</string>
-    <string name="settings_russian" translatable="false">Русский</string>
-
-    // Игра
-    <string name="game_levels" translatable="false">%d/%d</string>
     <string name="game_level_complete">Уровень пройден!</string>
     <string name="game_all_level_complete">Поздравляю, ты прошел все уровни!</string>
-
-    // Ошибки
     <string name="error_title">Что-то пошло не так</string>
     <string name="error_repeat">Повторить</string>
+    <string name="settings_language">Язык</string>
 </resources>

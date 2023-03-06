@@ -1,15 +1,14 @@
 package com.game.ballsofwool.feature.menu.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,11 +42,20 @@ fun Buttons(
     ) {
         Spacer(Modifier.weight(1f))
         Spacer(Modifier.height(8.dp))
-        TitleText(
-            text = R.string.game_name,
-            fontSize = 50.sp,
-            style = Typography.h1,
-        )
+        Box {
+            Image(
+                painter = painterResource(R.drawable.img_menu_balls),
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .size(width = 63.dp, height = 49.dp)
+            )
+            TitleText(
+                text = R.string.game_name,
+                fontSize = 50.sp,
+                style = Typography.h1,
+            )
+        }
         Spacer(Modifier.height(17.dp))
         MenuButton(
             text = R.string.play_button_text,

@@ -11,7 +11,7 @@ val repositoryModule = module {
     single {
         PreferencesDataSource(androidApplication())
     }
-    single {
+    factory {
         Repository(get())
     }
     single {

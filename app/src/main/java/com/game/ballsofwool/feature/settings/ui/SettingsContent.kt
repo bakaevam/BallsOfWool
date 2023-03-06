@@ -4,16 +4,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.game.ballsofwool.R
 import com.game.ballsofwool.feature.settings.SettingsState
 import com.game.ballsofwool.ui.TitleText
 import com.game.ballsofwool.ui.theme.RoseE2ABF5
+import com.game.ballsofwool.ui.theme.Typography
 import com.game.ballsofwool.ui.theme.White
 
 @Composable
@@ -23,6 +26,8 @@ fun SettingsContent(
     onBackClick: () -> Unit,
     onSoundClick: () -> Unit,
     onMusicClick: () -> Unit,
+    onNextClick: () -> Unit,
+    onPreviousClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -49,7 +54,7 @@ fun SettingsContent(
                 text = R.string.settings_title,
                 fontSize = 40.sp,
             )
-            Spacer(Modifier.height(50.dp))
+            Spacer(Modifier.height(40.dp))
             Row(modifier = Modifier.align(CenterHorizontally)) {
                 val musicIcon = when {
                     state.musicOn -> R.drawable.ic_music_on
@@ -69,6 +74,22 @@ fun SettingsContent(
                     text = R.string.settings_sound,
                     icon = soundIcon,
                     onClick = onSoundClick,
+                )
+            }
+            Spacer(Modifier.height(16.dp))
+            Text(
+                modifier = Modifier.align(CenterHorizontally),
+                text = stringResource(R.string.settings_language),
+                style = Typography.h2,
+                color = White,
+            )
+            Spacer(Modifier.height(8.dp))
+            state.currentLanguage?.let { language ->
+                LanguageItem(
+                    modifier = Modifier.align(CenterHorizontally),
+                    language = language,
+                    onNextClick = onNextClick,
+                    onPreviousClick = onPreviousClick,
                 )
             }
         }

@@ -15,6 +15,9 @@ class Repository(
     val lastOpenLevel: Flow<Int>
         get() = preferences.lastOpenLevel
 
+    val selectedLanguage: Flow<String>
+        get() = preferences.selectedLanguage
+
     suspend fun setMusicOn(musicOn: Boolean) =
         preferences.setMusicOn(musicOn)
 
@@ -23,4 +26,7 @@ class Repository(
 
     suspend fun setLastOpenLevel(number: Int) =
         preferences.setLastOpenLevel(number)
+
+    suspend fun setSelectedLanguage(language: String) =
+        preferences.setSelectedLanguage(language)
 }

@@ -19,6 +19,9 @@ class PreferencesDataSource(
     val lastOpenLevel: Flow<Int> =
         flowOf(KEY_LAST_OPEN_LEVEL, 1)
 
+    val selectedLanguage: Flow<String> =
+        flowOf(KEY_SELECTED_LANGUAGE, "")
+
     suspend fun setMusicOn(musicOn: Boolean) = edit { preferences ->
         preferences[KEY_MUSIC_ON] = musicOn
     }
@@ -29,6 +32,10 @@ class PreferencesDataSource(
 
     suspend fun setLastOpenLevel(levelNumber: Int) = edit { preferences ->
         preferences[KEY_LAST_OPEN_LEVEL] = levelNumber
+    }
+
+    suspend fun setSelectedLanguage(language: String) = edit { preferences ->
+        preferences[KEY_SELECTED_LANGUAGE] = language
     }
 
     private fun <T> flowOf(
@@ -48,6 +55,7 @@ class PreferencesDataSource(
         private val KEY_MUSIC_ON = booleanPreferencesKey("music_on")
         private val KEY_SOUND_ON = booleanPreferencesKey("sound_on")
         private val KEY_LAST_OPEN_LEVEL = intPreferencesKey("last_open_level")
+        private val KEY_SELECTED_LANGUAGE = stringPreferencesKey("selected_language")
 
         private val Context.dataStore by preferencesDataStore(name = STORE_NAME)
     }

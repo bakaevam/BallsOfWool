@@ -47,21 +47,12 @@ fun MenuContent(
             modifier = Modifier.size(288.dp, 258.dp),
         )
         Spacer(Modifier.weight(0.2f))
-        Box {
-            Image(
-                painter = painterResource(R.drawable.img_menu_balls),
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(start = 250.dp, top = 65.dp)
-                    .size(width = 63.dp, height = 49.dp)
-            )
-            Buttons(
-                modifier = Modifier.fillMaxHeight(),
-                onPlayClick = onPlayClick,
-                onLevelsClick = onLevelsClick,
-                onSettingsClick = onSettingsClick,
-            )
-        }
+        Buttons(
+            modifier = Modifier.fillMaxHeight(),
+            onPlayClick = onPlayClick,
+            onLevelsClick = onLevelsClick,
+            onSettingsClick = onSettingsClick,
+        )
         Spacer(Modifier.weight(1f))
     }
 }

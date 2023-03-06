@@ -1,5 +1,6 @@
 package com.game.ballsofwool.di
 
+import com.game.ballsofwool.feature.MainViewModel
 import com.game.ballsofwool.feature.game.main.GameViewModel
 import com.game.ballsofwool.feature.levels.LevelsViewModel
 import com.game.ballsofwool.feature.menu.MenuViewModel
@@ -20,5 +21,8 @@ val viewModelModule = module {
     }
     viewModel { (levelNumber: Int) ->
         GameViewModel(levelNumber, get(), get())
+    }
+    viewModel {
+        MainViewModel(get())
     }
 }

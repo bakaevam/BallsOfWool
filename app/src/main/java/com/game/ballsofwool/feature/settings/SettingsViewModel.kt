@@ -1,6 +1,7 @@
 package com.game.ballsofwool.feature.settings
 
 import androidx.lifecycle.viewModelScope
+import com.game.ballsofwool.data.model.Language
 import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
 import kotlinx.coroutines.flow.first
@@ -9,6 +10,8 @@ import kotlinx.coroutines.launch
 class SettingsViewModel(
     private val repository: Repository,
 ) : MviViewModel<SettingsState, SettingsEffect>(SettingsState()) {
+
+    private val languages = Language.values()
 
     init {
         viewModelScope.launch {
@@ -19,6 +22,11 @@ class SettingsViewModel(
         viewModelScope.launch {
             repository.soundOn.collect {
                 setState { copy(soundOn = it) }
+            }
+        }
+        viewModelScope.launch {
+            repository.selectedLanguage.collect {
+                setState { copy(currentLanguage = Language.getLanguage(it)) }
             }
         }
     }
@@ -46,6 +54,31 @@ class SettingsViewModel(
                 musicOn -> postEffect(SettingsEffect.PlayMusic)
                 else -> postEffect(SettingsEffect.StopMusic)
             }
+        }
+    }
+
+    fun onNextClick() {
+        val indexLanguage = languages.indexOf(state.value.currentLanguage)
+        val newLanguage = when (indexLanguage) {
+            languages.size - 1 -> languages.first()
+            else -> languages[indexLanguage + 1]
+        }
+        changeApplicationLanguage(newLanguage.code)
+    }
+
+    fun onPreviousClick() {
+        val indexLanguage = languages.indexOf(state.value.currentLanguage)
+        val newLanguage = when (indexLanguage) {
+            0 -> languages.last()
+            else -> languages[indexLanguage - 1]
+        }
+        changeApplicationLanguage(newLanguage.code)
+    }
+
+    private fun changeApplicationLanguage(language: String) {
+        viewModelScope.launch {
+            repository.setSelectedLanguage(language)
+            postEffect(SettingsEffect.UpdateLanguage(language))
         }
     }
 
