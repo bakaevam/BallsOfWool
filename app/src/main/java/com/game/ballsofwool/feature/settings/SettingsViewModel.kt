@@ -58,21 +58,27 @@ class SettingsViewModel(
     }
 
     fun onNextClick() {
-        val indexLanguage = languages.indexOf(state.value.currentLanguage)
-        val newLanguage = when (indexLanguage) {
-            languages.size - 1 -> languages.first()
-            else -> languages[indexLanguage + 1]
+        viewModelScope.launch {
+            clickSound(repository.soundOn.first())
+            val indexLanguage = languages.indexOf(state.value.currentLanguage)
+            val newLanguage = when (indexLanguage) {
+                languages.size - 1 -> languages.first()
+                else -> languages[indexLanguage + 1]
+            }
+            changeApplicationLanguage(newLanguage.code)
         }
-        changeApplicationLanguage(newLanguage.code)
     }
 
     fun onPreviousClick() {
-        val indexLanguage = languages.indexOf(state.value.currentLanguage)
-        val newLanguage = when (indexLanguage) {
-            0 -> languages.last()
-            else -> languages[indexLanguage - 1]
+        viewModelScope.launch {
+            clickSound(repository.soundOn.first())
+            val indexLanguage = languages.indexOf(state.value.currentLanguage)
+            val newLanguage = when (indexLanguage) {
+                0 -> languages.last()
+                else -> languages[indexLanguage - 1]
+            }
+            changeApplicationLanguage(newLanguage.code)
         }
-        changeApplicationLanguage(newLanguage.code)
     }
 
     private fun changeApplicationLanguage(language: String) {
