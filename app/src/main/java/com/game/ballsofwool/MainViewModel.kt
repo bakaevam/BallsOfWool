@@ -1,4 +1,4 @@
-package com.game.ballsofwool.feature
+package com.game.ballsofwool
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

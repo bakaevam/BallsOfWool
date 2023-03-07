@@ -9,8 +9,6 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.game.ballsofwool.feature.MainEffect
-import com.game.ballsofwool.feature.MainViewModel
 import com.game.ballsofwool.router.router
 import com.yariksoffice.lingver.Lingver
 import org.koin.androidx.viewmodel.ext.android.viewModel

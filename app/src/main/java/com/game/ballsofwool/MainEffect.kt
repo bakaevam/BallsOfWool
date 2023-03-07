@@ -1,4 +1,4 @@
-package com.game.ballsofwool.feature
+package com.game.ballsofwool
 
 sealed interface MainEffect {
 

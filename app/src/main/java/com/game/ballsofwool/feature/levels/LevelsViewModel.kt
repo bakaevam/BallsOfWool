@@ -27,14 +27,14 @@ class LevelsViewModel(
 
     fun onPreviousClick() {
         setState {
-            copy(firstLevelIndex = firstLevelIndex - 24)
+            copy(firstLevelIndex = firstLevelIndex - LEVELS_PAGE_COUNT)
         }
         validate()
     }
 
     fun onNextClick() {
         setState {
-            copy(firstLevelIndex = firstLevelIndex + 24)
+            copy(firstLevelIndex = firstLevelIndex + LEVELS_PAGE_COUNT)
         }
         validate()
     }
@@ -96,5 +96,10 @@ class LevelsViewModel(
                 nextVisible = levels != null && levels >= firstLevelIndex + 24,
             )
         }
+    }
+
+    companion object {
+
+        private const val LEVELS_PAGE_COUNT = 24
     }
 }

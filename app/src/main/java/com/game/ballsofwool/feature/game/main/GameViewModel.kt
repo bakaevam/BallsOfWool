@@ -66,10 +66,16 @@ class GameViewModel(
             )
         }
         validate()
+        showManualDialog()
+    }
+
+    private fun showManualDialog() {
         viewModelScope.launch {
-            if (state.value.currentLevel?.levelNumber == 1 && !repository.showedManual.first()) {
+            val showedManual = !repository.showedManual.first()
+            if (state.value.currentLevel?.levelNumber == FIRST_LEVEL_NUMBER && showedManual) {
                 repository.setShowedManual(true)
-                postEffect(GameEffect.ShowManualDialog(repository.soundOn.first()))
+                val soundOn = repository.soundOn.first()
+                postEffect(GameEffect.ShowManualDialog(soundOn))
             }
         }
     }
@@ -77,10 +83,7 @@ class GameViewModel(
     private fun getLevel() {
         viewModelScope.launch {
             val dbLevels = mutableListOf<LevelResponse>()
-            val number = when {
-                levelNumber != -1 -> levelNumber
-                else -> repository.lastOpenLevel.first()
-            }
+            val number = getLevelNumber()
             db.getLevel(number)
                 .addSnapshotListener { value, error ->
                     try {
@@ -115,8 +118,14 @@ class GameViewModel(
                     } finally {
                         setState { copy(loading = false) }
                     }
-
                 }
+        }
+    }
+
+    private suspend fun getLevelNumber(): Int {
+        return when {
+            levelNumber != -1 -> levelNumber
+            else -> repository.lastOpenLevel.first()
         }
     }
 
@@ -211,5 +220,10 @@ class GameViewModel(
                 y = ball.y.dpToPx(displayMetrics)
             )
         }
+    }
+
+    companion object {
+
+        private const val FIRST_LEVEL_NUMBER = 1
     }
 }
