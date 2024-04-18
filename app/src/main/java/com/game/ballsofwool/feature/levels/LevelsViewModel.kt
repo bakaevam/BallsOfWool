@@ -1,7 +1,7 @@
 package com.game.ballsofwool.feature.levels
 
 import androidx.lifecycle.viewModelScope
-import com.game.ballsofwool.data.db.FirebaseDatabaseRepositoryImpl
+import com.game.ballsofwool.data.db.Database
 import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
 import kotlinx.coroutines.flow.first
@@ -10,7 +10,7 @@ import timber.log.Timber
 
 class LevelsViewModel(
     private val repository: Repository,
-    private val db: FirebaseDatabaseRepositoryImpl,
+    private val db: Database,
 ) : MviViewModel<LevelsState, LevelsEffect>(LevelsState()) {
 
     fun onResume() {

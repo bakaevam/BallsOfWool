@@ -3,8 +3,12 @@ package com.game.ballsofwool.feature.game.main
 import android.util.DisplayMetrics
 import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.viewModelScope
-import com.game.ballsofwool.data.db.FirebaseDatabaseRepositoryImpl
-import com.game.ballsofwool.data.model.*
+import com.game.ballsofwool.data.db.Database
+import com.game.ballsofwool.data.model.Ball
+import com.game.ballsofwool.data.model.Level
+import com.game.ballsofwool.data.model.LevelResponse
+import com.game.ballsofwool.data.model.Line
+import com.game.ballsofwool.data.model.LocalLine
 import com.game.ballsofwool.data.source.Repository
 import com.game.ballsofwool.feature.base.MviViewModel
 import com.game.ballsofwool.utils.DataConverter
@@ -16,11 +20,12 @@ import timber.log.Timber
 
 class GameViewModel(
     private var levelNumber: Int,
-    private val db: FirebaseDatabaseRepositoryImpl,
+    private val db: Database,
     private val repository: Repository,
 ) : MviViewModel<GameState, GameEffect>(GameState()) {
 
     private var level: Level? = null
+    private var allLevelsCount: Int? = null
 
     init {
         getAllLevelsCount()
@@ -131,8 +136,7 @@ class GameViewModel(
 
     private fun getNextLevel() {
         viewModelScope.launch {
-            val state = state.value
-            if (state.allLevels != null && level != null && level!!.levelNumber < state.allLevels) {
+            if (allLevelsCount != null && level != null && level!!.levelNumber < allLevelsCount!!) {
                 val nextLevelNumber = repository.lastOpenLevel.first() + 1
                 levelNumber = if (level?.levelNumber == repository.lastOpenLevel.first()) {
                     repository.setLastOpenLevel(nextLevelNumber)
@@ -157,10 +161,8 @@ class GameViewModel(
                 .addOnCompleteListener { task ->
                     setState { copy(loading = true, allLevelsError = null) }
                     if (task.isSuccessful) {
-                        val allLevels = task.result.count.toInt()
-                        setState {
-                            copy(allLevels = allLevels)
-                        }
+                        allLevelsCount = task.result.count.toInt()
+                        setState { copy(allLevels = allLevelsCount) }
                         setState { copy(loading = false) }
                     } else {
                         Timber.e(task.exception, "error load all levels count")

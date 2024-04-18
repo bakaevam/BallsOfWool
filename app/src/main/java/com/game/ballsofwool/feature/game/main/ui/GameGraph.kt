@@ -68,7 +68,7 @@ fun GameGraph(
                 modifier = Modifier
                     .size(width = BALL_WIDTH, height = BALL_HEIGHT)
                     .offset { IntOffset(ball.x.roundToInt(), ball.y.roundToInt()) }
-                    .pointerInput(Unit) {
+                    .pointerInput(level.levelNumber) {
                         detectDragGestures(
                             onDrag = { _, delta ->
                                 onBallDrag(ball, delta)
