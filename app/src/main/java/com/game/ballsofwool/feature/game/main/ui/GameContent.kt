@@ -3,8 +3,11 @@ package com.game.ballsofwool.feature.game.main.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -39,6 +42,7 @@ private fun Preview() {
                 allLevels = 30,
             ),
             onBackClick = {},
+            onRestartClick = {},
             onBallDrag = { _, _ -> },
             onDragEnd = {},
             onRestartAllLevelsClick = {},
@@ -54,6 +58,7 @@ fun GameContent(
     onRestartLoadClick: () -> Unit,
     onRestartAllLevelsClick: () -> Unit,
     onBackClick: () -> Unit,
+    onRestartClick: () -> Unit,
     onBallDrag: (Ball, Offset) -> Unit,
     onDragEnd: () -> Unit,
 ) {
@@ -62,20 +67,32 @@ fun GameContent(
             .fillMaxSize()
             .background(color = RoseE2ABF5),
     ) {
-        IconButton(
-            modifier = Modifier.padding(20.dp),
-            onClick = onBackClick
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_back),
-                contentDescription = null,
-                tint = White,
-            )
+        Row(modifier = Modifier.padding(20.dp)) {
+            IconButton(
+                onClick = onBackClick
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_back),
+                    contentDescription = null,
+                    tint = White,
+                )
+            }
+            Spacer(Modifier.width(8.dp))
+            IconButton(
+                onClick = onRestartClick,
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_restart),
+                    contentDescription = null,
+                    tint = White,
+                )
+            }
         }
         when {
             state.loading -> {
                 Loader(Modifier.fillMaxSize())
             }
+
             state.loadError != null -> {
                 ErrorLayout(
                     modifier = Modifier.fillMaxSize(),

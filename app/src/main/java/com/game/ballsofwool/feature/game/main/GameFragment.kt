@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
 import com.game.ballsofwool.R
-import com.game.ballsofwool.ext.*
+import com.game.ballsofwool.ext.FragmentResult
+import com.game.ballsofwool.ext.nullableIntArgument
+import com.game.ballsofwool.ext.pressBack
+import com.game.ballsofwool.ext.setResult
+import com.game.ballsofwool.ext.setResultListener
 import com.game.ballsofwool.feature.base.MviFragment
 import com.game.ballsofwool.feature.game.completedialog.CompleteLevelDialog
 import com.game.ballsofwool.feature.game.main.ui.GameContent
@@ -32,6 +36,7 @@ class GameFragment : MviFragment<GameState, GameEffect, GameViewModel>() {
             GameContent(
                 state = state,
                 onBackClick = ::pressBack,
+                onRestartClick = viewModel::onRestartClick,
                 onRestartLoadClick = viewModel::onRestartLoadClick,
                 onRestartAllLevelsClick = viewModel::onRestartAllLevelsClick,
                 onBallDrag = viewModel::onBallDrag,
